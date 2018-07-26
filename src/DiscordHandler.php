@@ -2,6 +2,8 @@
 
 namespace KABBOUCHI\LoggerDiscordChannel;
 
+use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\RequestOptions;
 use Monolog\Formatter\LineFormatter;
 use \Monolog\Logger;
 use \Monolog\Handler\AbstractProcessingHandler;
@@ -41,14 +43,27 @@ class DiscordHandler extends AbstractProcessingHandler
     {
         $formatter = new LineFormatter(null, null, true, true);
         $formatter->includeStacktraces();
-
         $content = $formatter->format($record);
 
-        
-       $this->guzzle->request('POST', $this->webhook, [
-            'form_params' => [
-                'content' => env('APP_URL') . " on fire 🔥 \n\n" . substr($content, 0, 1900)
-            ]
+        // Set up the formatted log
+        $log = [
+            'embeds' => [
+                [
+                    'title' => 'Log from ' . $this->name,
+                    // Use CSS for the formatter, as it provides the most distinct colouring.
+                    'description' => "```css\n" . substr($content, 0, 2030). '```',
+                    'color' => 0xE74C3C,
+                ],
+            ],
+        ];
+
+        // Tag a role if configured for it
+        if(config('logging.discord.role_id')) $log['content'] = "<@&" . config('logging.discord.role_id') . ">";
+
+
+        // Send it to discord
+        $this->guzzle->request('POST', $this->webhook, [
+            RequestOptions::JSON => $log,
         ]);
     }
 }
