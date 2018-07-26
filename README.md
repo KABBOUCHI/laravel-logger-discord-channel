@@ -21,4 +21,8 @@ Add the new driver type in your `config/logging.php` configuration
     ],
 ],
 
+// role to tag in the error
+'discord' => [
+    'role_id' => '',
+],
 ```
