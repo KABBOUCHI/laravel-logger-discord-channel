@@ -18,20 +18,24 @@ class DiscordHandler extends AbstractProcessingHandler
 
     private $webhook;
     private $statement;
+    private $roleId;
 
-    /**
-     * MonologDiscordHandler constructor.
-     * @param \GuzzleHttp\Client $guzzle
-     * @param bool $webhooks
-     * @param int $level
-     * @param bool $bubble
-     */
-    public function __construct($webhook, $name, $subname = '', $level = Logger::DEBUG, $bubble = true)
+	/**
+	 * MonologDiscordHandler constructor.
+	 * @param $webhook
+	 * @param $name
+	 * @param string $subname
+	 * @param int $level
+	 * @param bool $bubble
+	 * @param null $roleId
+	 */
+    public function __construct($webhook, $name, $subname = '', $level = Logger::DEBUG, $bubble = true, $roleId   =null)
     {
         $this->name = $name;
         $this->subname = $subname;
         $this->guzzle = new \GuzzleHttp\Client();
-        $this->webhook = $webhook;
+		$this->webhook = $webhook;
+		$this->roleId = $roleId;
         parent::__construct($level, $bubble);
     }
 
@@ -58,7 +62,7 @@ class DiscordHandler extends AbstractProcessingHandler
         ];
 
         // Tag a role if configured for it
-        if(config('logging.discord.role_id')) $log['content'] = "<@&" . config('logging.discord.role_id') . ">";
+        if($this->roleId) $log['content'] = "<@&" . $this->roleId . ">";
 
 
         // Send it to discord

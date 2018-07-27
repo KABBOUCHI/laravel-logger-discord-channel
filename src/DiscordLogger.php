@@ -15,7 +15,7 @@ class DiscordLogger
     public function __invoke(array $config)
     {
         $log = new Logger('discord');
-        $log->pushHandler(new DiscordHandler($config['webhook'], config('app.name'), null, $config['level'] ?? 'DEBUG'));
+        $log->pushHandler(new DiscordHandler($config['webhook'], config('app.name'), null, $config['level'] ?? 'DEBUG'), $config['role_id'] ?? null);
 
         return $log;
     }
