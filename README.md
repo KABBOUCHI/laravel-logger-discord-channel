@@ -18,6 +18,7 @@ Add the new driver type in your `config/logging.php` configuration
         'via' => KABBOUCHI\LoggerDiscordChannel\DiscordLogger::class,
         'webhook' => 'https://discordapp.com/api/webhooks/.....',
         'level' => 'DEBUG',
-        'role_id' => null, // role to tag in the error
+        'role_id' => null, // role to tag in the error,
+        'environment' => 'production', // or ['production', 'staging', 'local']
     ],
 ],
