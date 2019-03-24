@@ -22,3 +22,12 @@ Add the new driver type in your `config/logging.php` configuration
         'environment' => 'production', // or ['production', 'staging', 'local']
     ],
 ],
+```
+
+## Note
+You may need to clear cache after installation if you get `laravel.EMERGENCY: Unable to create configured logger. ... Log [discord] is not defined.` with
+```bash
+php artisan config:clear
+```
+
+
