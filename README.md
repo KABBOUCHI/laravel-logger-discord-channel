@@ -3,7 +3,7 @@
 
 ## Install
 ```bash
-composer require kabbouchi/laravel-logger-discord-channel:dev-master
+composer require kabbouchi/laravel-logger-discord-channel
 
 ```
 
