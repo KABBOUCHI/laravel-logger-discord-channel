@@ -43,7 +43,7 @@ class DiscordHandler extends AbstractProcessingHandler
      * @param array $record
      * @throws \GuzzleHttp\Exception\GuzzleException
      */
-    protected function write(array $record)
+    protected function write(array $record): void
     {
         $formatter = new LineFormatter(null, null, true, true);
         $formatter->includeStacktraces();
