@@ -1,5 +1,5 @@
 {
-  "name": "adlerdias/laravel-logger-discord-channel",
+  "name": "kabbouchi/laravel-logger-discord-channel",
   "description": "A Discord based Monolog driver for Laravel",
   "keywords": [
     "laravel",
